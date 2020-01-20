@@ -31,6 +31,7 @@ import android.view.animation.Animation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.Locale;
 
 /**
  * created by zhuangguangquan on 2017/9/1
@@ -1540,14 +1541,33 @@ public class IndicatorSeekBar extends View {
     }
 
     String getIndicatorTextString() {
-        if (mIndicatorTextFormat != null && mIndicatorTextFormat.contains(FORMAT_TICK_TEXT)) {
-            if (mTicksCount > 2 && mTickTextsArr != null) {
-                return mIndicatorTextFormat.replace(FORMAT_TICK_TEXT, mTickTextsArr[getThumbPosOnTick()]);
-            }
-        } else if (mIndicatorTextFormat != null && mIndicatorTextFormat.contains(FORMAT_PROGRESS)) {
-            return mIndicatorTextFormat.replace(FORMAT_PROGRESS, getProgressString(mProgress));
-        }
-        return getProgressString(mProgress);
+        //long millis= (long)(mProgress)%1000;
+        long millis2= (long)((mProgress)%1000)/10;
+        long seconds2=(long)(mProgress/1000);
+        //long seconds=(long)(mProgress/1000)%60;
+        //long minutes=(long)(mProgress/(1000*60))%60;
+        //long hours = (long)(mProgress/(1000*60*60)%60);
+        //return String.format(Locale.getDefault(), "%02d:%02d.%03d", minutes, seconds, millis);
+        return String.format(Locale.getDefault(), "%02d.%02d", seconds2, millis2);
+
+
+        //DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+//
+        //String myDate = dateFormat.format(new Date(TimeUnit.MILLISECONDS.toMillis((long)mProgress)));
+        //while (( myDate.charAt(0) == '0' || myDate.charAt(0) == ':')){
+        //    myDate = myDate.substring(1);
+        //}
+        //return myDate;
+
+        //return String.format("%d : %d", minutes, seconds);
+        //if (mIndicatorTextFormat != null && mIndicatorTextFormat.contains(FORMAT_TICK_TEXT)) {
+        //    if (mTicksCount > 2 && mTickTextsArr != null) {
+        //        return mIndicatorTextFormat.replace(FORMAT_TICK_TEXT, mTickTextsArr[getThumbPosOnTick()]);
+        //    }
+        //} else if (mIndicatorTextFormat != null && mIndicatorTextFormat.contains(FORMAT_PROGRESS)) {
+        //    return mIndicatorTextFormat.replace(FORMAT_PROGRESS, getProgressString(mProgress));
+        //}
+        //return getProgressString(mProgress);
     }
 
     /*------------------API START-------------------*/
